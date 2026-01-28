@@ -6,7 +6,7 @@ class PostController{
    static async post(req,res){
     try {
         let data =await Post.getLatest()
-        res.render("post",{data,formatDate})
+        res.render("",{data,formatDate})
     } catch (error) {
         res.send(error)
         
@@ -15,7 +15,7 @@ class PostController{
    static async getAddPost(req,res){
     try {
 
-        res.render("test",)
+        res.render("",)
     } catch (error) {
         res.send(error)
         
@@ -40,7 +40,7 @@ class PostController{
    static async getEditPost(req,res){
     try {
 
-        res.render("test",)
+        res.render("",)
     } catch (error) {
         res.send(error)
         

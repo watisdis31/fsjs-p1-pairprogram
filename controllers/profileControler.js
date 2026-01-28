@@ -13,7 +13,7 @@ class profileController{
             })
     
     
-            res.render("profile",{data,formatDate})
+            res.render("",{data,formatDate})
         } catch (error) {
             res.send(error)
             

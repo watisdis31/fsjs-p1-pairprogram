@@ -8,7 +8,7 @@ class CommunityController{
     try {
         const data=await Community.findAll()
 
-        res.render("community",{data})
+        res.render("",{data})
     } catch (error) {
         res.send(error)
         
@@ -16,7 +16,7 @@ class CommunityController{
    }
    static async getAddCommunity(req,res){
     try {
-        res.render("CommunityAdd")
+        res.render("")
     } catch (error) {
         res.send(error)
         
@@ -41,7 +41,7 @@ class CommunityController{
                 {model:Post}
             ]
         })
-        res.render("comdetail",{data})
+        res.render("",{data})
     } catch (error) {
         res.send(error)
         
