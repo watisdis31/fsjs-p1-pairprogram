@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "communityName": "Programmer Indonesia",
+    "description": "Komunitas sharing seputar coding"
+  },
+  {
+    "id": 2,
+    "communityName": "Pecinta Kopi",
+    "description": "Ngopi dan diskusi santai"
+  },
+  {
+    "id": 3,
+    "communityName": "Travel Nusantara",
+    "description": "Jalan-jalan keliling Indonesia"
+  }
+]

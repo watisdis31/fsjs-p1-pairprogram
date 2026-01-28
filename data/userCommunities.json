@@ -1,0 +1,27 @@
+[
+  {
+    "id": 1,
+    "UserId": 1,
+    "CommunityId": 1
+  },
+  {
+    "id": 2,
+    "UserId": 2,
+    "CommunityId": 1
+  },
+  {
+    "id": 3,
+    "UserId": 2,
+    "CommunityId": 2
+  },
+  {
+    "id": 4,
+    "UserId": 3,
+    "CommunityId": 2
+  },
+  {
+    "id": 5,
+    "UserId": 1,
+    "CommunityId": 3
+  }
+]
