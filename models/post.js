@@ -4,24 +4,34 @@ const {
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Post extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
+    static getLatest(){
+      return this.findAll({
+        include:"User",
+        order:[["createdAt","DESC"]]
+      })
+    }
     static associate(models) {
       Post.belongsTo(models.User,{
         foreignKey:"UserId"
+      })
+      Post.belongsTo(models.Community,{
+        foreignKey:"CommunityId"
       })
     }
   }
   Post.init({
     description: DataTypes.TEXT,
     imageUrl: DataTypes.STRING,
-    createdDate: DataTypes.DATE,
-    totalLike: DataTypes.INTEGER,
+    totalLike: {
+      type:DataTypes.INTEGER,
+      defaultValue: 0
+    },
     UserId: DataTypes.INTEGER,
-    userComment: DataTypes.TEXT
+    userComment: DataTypes.TEXT,
+    CommunityId:{
+      type:DataTypes.INTEGER,
+      allowNull:true
+    }
   }, {
     sequelize,
     modelName: 'Post',

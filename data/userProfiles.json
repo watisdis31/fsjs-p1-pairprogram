@@ -1,23 +1,18 @@
 [
   {
     "id": 1,
-    "username": "andika",
-    "email": "andika@mail.com",
-    "password": "12345",
-    "role": "admin"
+    "UserId": 1,
+    "userPost": "Halo! Saya suka ngoding dan belajar teknologi baru."
   },
   {
     "id": 2,
-    "username": "budi",
-    "email": "budi@mail.com",
-    "password": "12345",
-    "role": "user"
+    "UserId": 2,
+    "userPost": "Penggemar fotografi dan traveling."
   },
   {
     "id": 3,
-    "username": "citra",
-    "email": "citra@mail.com",
-    "password": "12345",
-    "role": "user"
+    "UserId": 3,
+    "userPost": "Fullstack developer | Node.js | PostgreSQL"
   }
+  
 ]

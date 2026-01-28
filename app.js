@@ -1,12 +1,18 @@
 const express = require('express');
-const Controller = require('./controllers/controller');
+const session = require('express-session');
+const router = require('./routes');
 const app = express()
-const port = 3000
+const port = 3033
 
 app.set("view engine","ejs")
 app.use(express.urlencoded({ extended: true }));
+app.use(session({
+    secret: 'gfg-key',
+    resave: false,
+    saveUninitialized: false
+}));
 
-app.get('/',Controller.post)
+app.use(router)
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
