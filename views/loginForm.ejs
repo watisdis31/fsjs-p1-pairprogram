@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login • KitabMuka</title>
+    <link rel="stylesheet" href="/styles/auth.css">
+</head>
+<body>
+    <main class="wrapper">
+        <section class="card">
+        <h1>Sign in to <span>KitabMuka</span></h1>
+
+        <form action="/kitabmuka/login" method="post" class="form">
+            <input 
+            type="email" 
+            name="email" 
+            placeholder="Email"
+            >
+
+            <input 
+            type="password" 
+            name="password" 
+            placeholder="Password"
+            >
+
+            <button type="submit" class="btn primary">Login</button>
+        </form>
+
+        <p class="switch">
+            Don’t have an account?
+            <a href="/kitabmuka/register">Register</a>
+        </p>
+        </section>
+    </main>
+</body>
+</html>
