@@ -1,36 +1,3 @@
-<<<<<<< HEAD
-'use strict';
-const {
-  Model
-} = require('sequelize');
-module.exports = (sequelize, DataTypes) => {
-  class User extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate(models) {
-     User.hasOne(models.UserProfile,{foreignKey:"UserId"})
-     User.hasMany(models.Post,{foreignKey:"UserId"})
-     User.belongsToMany(models.Community,{
-        through:models.UserCommunity,
-        foreignKey:"UserId"
-     })
-     
-    }
-  }
-  User.init({
-    username: DataTypes.STRING,
-    email: DataTypes.STRING,
-    password: DataTypes.STRING
-  }, {
-    sequelize,
-    modelName: 'User',
-  });
-  return User;
-};
-=======
 'use strict'
 const bcrypt = require('bcryptjs')
 const { Model } = require('sequelize')
@@ -83,4 +50,3 @@ module.exports = (sequelize, DataTypes) => {
 
   return User
 }
->>>>>>> 0662ec267ecefe01b1c51c0023547acdd3cef012

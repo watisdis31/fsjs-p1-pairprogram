@@ -27,7 +27,7 @@ class AuthController {
       })
   }
 
-  static loginForm(req, res) {
+  static registerForm(req, res) {
     res.render('registerForm')
   }
 
