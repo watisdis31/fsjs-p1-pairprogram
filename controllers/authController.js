@@ -4,18 +4,21 @@ const sendWelcomeEmail = require('../helpers/sendEmail')
 
 class AuthController {
   static loginForm(req, res) {
-    res.render('loginForm')
+    res.render('loginForm', {error: null});
   }
 
   static login(req, res) {
     const { email, password } = req.body
 
+    if (!email) return res.render('loginForm', { error: 'Email required!' });
+    if (!password) return res.render('loginForm', { error: 'Password required!' });
+
     User.findOne({ where: { email } })
       .then(user => {
-        if (!user) throw 'Email tidak terdaftar'
+        if (!user) throw 'Email is not registered'
 
         const isValid = bcrypt.compareSync(password, user.password)
-        if (!isValid) throw 'Password salah'
+        if (!isValid) throw 'Password is incorrect'
 
         req.session.userId = user.id
         req.session.role = user.role
@@ -32,7 +35,7 @@ class AuthController {
   }
 
   static registerForm (req, res) {
-    res.render('registerForm');
+    res.render('registerForm', {errors: null, oldData: {}});
   }
 
   static register(req, res) {
@@ -46,8 +49,12 @@ class AuthController {
         res.redirect('/kitabmuka/login')
       })
       .catch(err => {
-        console.log('REGISTER ERROR >>>', err)
-        res.render('registerForm')
+        if (err.name === 'SequelizeValidationError') {
+          const errors = err.errors.map(el => el.message).join('; ');
+          res.render('registerForm', { errors, oldData: req.body });
+        } else {
+          res.send(err);
+        }
       })
   }
 

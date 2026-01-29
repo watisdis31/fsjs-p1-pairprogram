@@ -24,21 +24,25 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         notNull: { msg: 'Username required!' },
         notEmpty: { msg: 'Username required!' },
+        async isUnique(value) {
+          const user = await User.findOne({ where: { username: value } });
+          if (user) throw new Error('Username is taken!');
+        }
       }
     },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
+      unique: {msg: 'Email is already registered!'},
       validate: {
         notNull: { msg: 'Email required!' },
         notEmpty: { msg: 'Email required!' },
         isEmail(value) {
           if (!value.includes('@')) throw new Error ('Email is not in the right format!');
         },
-        async exists(value) {
-          const user = await User.findOne({where: {email: value}});
-          if (!user) throw new Error ('Email is not registered')
+        async isUnique(value) {
+          const user = await User.findOne({ where: { email: value } });
+          if (user) throw new Error('Email is already registered!');
         }
       }
     },

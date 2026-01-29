@@ -34,18 +34,18 @@ module.exports = (sequelize, DataTypes) => {
     },
     imageUrl: {
       type:DataTypes.STRING,
-      allowNull:false,
-      validate:{
-        notNull:{
-          msg:"Image URL tidak boleh kosong"
-        },
-        notEmpty:{
-          msg:"Image URL tidak boleh kosong"
-        },
-        isUrl:{
-          msg: "Image URL harus berupa URL yang valid"
-        }
-      }
+      // allowNull:false,
+      // validate:{
+      //   notNull:{
+      //     msg:"Image URL tidak boleh kosong"
+      //   },
+      //   notEmpty:{
+      //     msg:"Image URL tidak boleh kosong"
+      //   },
+      //   isUrl:{
+      //     msg: "Image URL harus berupa URL yang valid"
+      //   }
+      // }
     },
     totalLike: {
       type:DataTypes.INTEGER,

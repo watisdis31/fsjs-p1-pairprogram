@@ -12,14 +12,11 @@
       <h1>Add New Post</h1>
       <p class="tagline">Share your thoughts with the community</p>
 
-      <!-- Error Messages -->
-      
-
       <form action="/kitabmuka/posts/add" method="POST">
         <label for="description">Description</label>
         <textarea name="description" id="description" placeholder="Write something..."><%= oldData?.description || '' %></textarea>
 
-        <label for="imageUrl">Image URL</label>
+        <label for="imageUrl">Image URL (Optional)</label>
         <input type="text" name="imageUrl" id="imageUrl" placeholder="https://example.com/image.jpg" value="<%= oldData?.imageUrl || '' %>">
 
         <div class="actions">

@@ -43,13 +43,13 @@
           </p>
 
           <% if(post.Community){ %>
-      <p class="post-community">
-        posted from 
-        <a href="/kitabmuka/communities/<%= post.Community.id %>" class="community-link">
-          <%= post.Community.communityName %>
-        </a>
-      </p>
-    <% } %>
+            <p class="post-community">
+              posted from 
+              <a href="/kitabmuka/communities/<%= post.Community.id %>" class="community-link">
+                <%= post.Community.communityName %>
+              </a>
+            </p>
+          <% } %>
 
           <div class="post-actions">
             <a href="/kitabmuka/posts/<%= post.id %>/like">❤️ Like (<%= post.totalLike %>)</a>

@@ -10,17 +10,23 @@
         <section class="card">
         <h1>Create your <span>KitabMuka</span> account</h1>
 
+        <% if (errors) { %>
+            <p class="error"><%= errors %></p>
+        <% } %>
+
         <form action="/kitabmuka/register" method="post" class="form">
             <input 
             type="text" 
             name="username" 
             placeholder="Username"
+            value="<%= oldData.username %>"
             >
 
             <input 
             type="email" 
             name="email" 
             placeholder="Email"
+            value="<%= oldData.email || '' %>"
             >
 
             <input 

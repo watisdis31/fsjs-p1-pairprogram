@@ -10,6 +10,10 @@
         <section class="card">
         <h1>Sign in to <span>KitabMuka</span></h1>
 
+        <% if (error) { %>
+            <p class="error"><%= error %></p>
+        <% } %>
+
         <form action="/kitabmuka/login" method="post" class="form">
             <input 
             type="email" 
