@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Communities • KitabMuka</title>
+  <link rel="stylesheet" href="/styles/communities.css">
+</head>
+<body>
+  <nav class="navbar">
+    <h2>KitabMuka Communities</h2>
+    <div class="nav-actions">
+      <a href="/kitabmuka/communities/add" class="btn primary">Create Community</a>
+      <a href="/kitabmuka/posts" class="btn outline">Home</a>
+      <a href="/kitabmuka/logout" class="btn outline">Logout</a>
+    </div>
+  </nav>
+
+  <main class="container">
+    <section class="search-bar">
+      <form action="/kitabmuka/communities" method="GET">
+        <input type="text" name="search" placeholder="Search communities..." value="<%= search %>">
+        <button type="submit" class="btn primary">Search</button>
+      </form>
+    </section>
+
+    <section class="community-list">
+      <% if (communities.length === 0) { %>
+        <p class="empty">No communities found 😴</p>
+      <% } else { %>
+        <% communities.forEach(c => { %>
+          <div class="community-card">
+            <h3><%= c.communityName %></h3>
+            <p><%= c.description %></p>
+            <p>Members: <%= c.Users.length %></p>
+            <a href="/kitabmuka/communities/<%= c.id %>" class="btn primary">See Community</a>
+          </div>
+        <% }) %>
+      <% } %>
+    </section>
+  </main>
+</body>
+</html>

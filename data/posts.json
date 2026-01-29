@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "UserId": 1,
+    "description": "Belajar Sequelize itu seru!",
+    "imageUrl": "https://picsum.photos/300/200",
+    "createdDate": "2026-01-20",
+    "totalLike": 5,
+    "userComment": "Semangat belajar!"
+  },
+  {
+    "id": 2,
+    "UserId": 2,
+    "description": "Ngopi dulu sebelum ngoding ☕",
+    "imageUrl": "https://picsum.photos/300/201",
+    "createdDate": "2026-01-21",
+    "totalLike": 10,
+    "userComment": "Setuju banget"
+  },
+  {
+    "id": 3,
+    "UserId": 3,
+    "description": "Liburan ke pantai Pacitan 🌊",
+    "imageUrl": "https://picsum.photos/300/202",
+    "createdDate": "2026-01-22",
+    "totalLike": 7,
+    "userComment": "Indah banget!"
+  }
+]

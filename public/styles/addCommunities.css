@@ -1,0 +1,66 @@
+body {
+  background-color: #000;
+  color: #e7e9ea;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+.container {
+  width: 90%;
+  max-width: 800px;
+  margin: 20px auto;
+}
+
+.community-header,
+.community-users,
+.community-posts,
+.add-post {
+  margin-bottom: 30px;
+}
+
+.post,
+.community-card,
+.add-post form {
+  background-color: #000;
+  border: 1px solid #2f3336;
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  width: 380px;
+  padding: 40px;
+  border-radius: 16px;
+  background-color: #000;
+  border: 1px solid #2f3336;
+  text-align: center;
+}
+
+.card textarea,
+.card input[type="text"] {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 12px;
+  border-radius: 12px;
+  border: 1px solid #2f3336;
+  background-color: #121212;
+  color: #e7e9ea;
+  margin-left: -9px;
+}
+
+.btn.primary {
+  background-color: #1d9bf0;
+  color: #fff;
+  border: none;
+  border-radius: 9999px;
+  padding: 12px;
+  font-weight: bold;
+  cursor: pointer;
+}

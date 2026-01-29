@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Add Post • KitabMuka</title>
+  <link rel="stylesheet" href="/styles/addPost.css">
+</head>
+<body>
+
+  <div class="wrapper">
+    <div class="card">
+      <h1>Add New Post</h1>
+      <p class="tagline">Share your thoughts with the community</p>
+
+      <form action="/kitabmuka/posts/add" method="POST">
+        <label for="description">Description</label>
+        <textarea name="description" id="description" placeholder="Write something..."><%= oldData?.description || '' %></textarea>
+
+        <label for="imageUrl">Image URL (Optional)</label>
+        <input type="text" name="imageUrl" id="imageUrl" placeholder="https://example.com/image.jpg" value="<%= oldData?.imageUrl || '' %>">
+
+        <div class="actions">
+          <button type="submit" class="btn primary">Post</button>
+          <a href="/kitabmuka/posts" class="btn outline">Cancel</a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</body>
+</html>

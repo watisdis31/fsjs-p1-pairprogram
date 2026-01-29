@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard • KitabMuka</title>
+  <link rel="stylesheet" href="/styles/adminDashboard.css">
+</head>
+<body>
+
+<nav class="navbar">
+  <h2>KitabMuka Admin</h2>
+  <div class="nav-actions">
+    <a href="/kitabmuka/posts" class="btn outline">Home</a>
+    <a href="/kitabmuka/logout" class="btn outline">Logout</a>
+  </div>
+</nav>
+
+<main class="wrapper">
+  <div class="card">
+    <h1>Admin Dashboard</h1>
+
+    <section>
+      <h2>Add Admin</h2>
+      <form action="/kitabmuka/admin/add" method="POST">
+        <select name="userId" required>
+          <option selected disabled>Select user</option>
+          <% users.forEach(user => { %>
+            <option value="<%= user.id %>"><%= user.username %> (<%= user.email %>)</option>
+          <% }) %>
+        </select>
+        <button type="submit" class="btn primary">Make Admin</button>
+      </form>
+    </section>
+
+    <section>
+      <h2>Admin List</h2>
+      <ul>
+        <% admins.forEach(admin => { %>
+          <li><%= admin.username %> (<%= admin.email %>)</li>
+        <% }) %>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Danger Zone</h2>
+      <form action="/kitabmuka/admin/delete-posts" method="POST" onsubmit="return confirm('Are you sure? All posts will be deleted!');">
+        <button type="submit" class="btn danger">Delete All Posts</button>
+      </form>
+    </section>
+
+  </div>
+</main>
+
+</body>
+</html>
