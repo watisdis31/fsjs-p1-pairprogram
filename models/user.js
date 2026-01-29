@@ -11,6 +11,15 @@ module.exports = (sequelize, DataTypes) => {
   }
 
   User.init({
+    username: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+      validate: {
+        notNull: { msg: 'Username wajib diisi' },
+        notEmpty: { msg: 'Username wajib diisi' }
+      }
+    },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -18,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         notNull: { msg: 'Email wajib diisi' },
         notEmpty: { msg: 'Email wajib diisi' },
-        isEmail: { msg: 'Format email saalah' }
+        isEmail: { msg: 'Format email salah' }
       }
     },
     password: {
@@ -34,19 +43,22 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     role: {
-      type: DataTypes.STRING,
-      defaultValue: 'user'
+      type: DataTypes.STRING
     }
   }, {
     sequelize,
-    modelName: 'User',
-    hooks: {
-      beforeCreate(user) {
-        const salt = bcrypt.genSaltSync(10)
-        user.password = bcrypt.hashSync(user.password, salt)
-      }
-    }
+    modelName: 'User'
   })
+
+  User.addHook('beforeCreate', (user) => {
+    const salt = bcrypt.genSaltSync(10)
+    user.password = bcrypt.hashSync(user.password, salt)
+
+    if (!user.role) {
+      user.role = 'user'
+    }
+})
+
 
   return User
 }

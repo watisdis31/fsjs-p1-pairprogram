@@ -32,17 +32,18 @@ class AuthController {
   }
 
   static register(req, res) {
-    const { email, password } = req.body
+    const { username, email, password } = req.body
 
-    User.create({ email, password, role: 'user' })
+    User.create({ username, email, password})
       .then(user => {
-        return sendWelcomeEmail(user.email)
-      })
-      .then(() => {
+      sendWelcomeEmail(user.email)
+        .then(() => console.log('EMAIL SENT'))
+        .catch(err => console.log('EMAIL ERROR >>>', err))
         res.redirect('/kitabmuka/login')
       })
       .catch(err => {
-        res.render('registerForm', { errors: err.errors })
+        console.log('REGISTER ERROR >>>', err)
+        res.render('registerForm')
       })
   }
 
