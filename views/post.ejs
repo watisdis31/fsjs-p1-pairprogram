@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Home • KitabMuka</title>
+  <link rel="stylesheet" href="/styles/post.css">
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <h2>KitabMuka</h2>
+    <div class="nav-actions">
+      <a href="/kitabmuka/posts/add" class="btn">Post</a>
+      <a href="/kitabmuka/logout" class="btn outline">Logout</a>
+    </div>
+  </nav>
+
+  <main class="container">
+    <section class="feed">
+
+      <% if (posts.length === 0) { %>
+        <p class="empty">No posts yet 😴</p>
+      <% } %>
+
+      <% posts.forEach(post => { %>
+        <article class="post">
+          <div class="post-header">
+            <strong>@<%= post.User?.username %></strong>
+            <span class="date"><%= formatDate(post.createdAt) %></span>
+          </div>
+
+          <p class="post-content">
+            <%= post.description %>
+          </p>
+
+          <div class="post-actions">
+            <a href="/kitabmuka/posts/<%= post.id %>/like">❤️ Like</a>
+
+            <% if (post.UserId === userId) { %>
+              <a href="/kitabmuka/posts/<%= post.id %>/edit">✏️ Edit</a>
+              <a href="/kitabmuka/posts/<%= post.id %>/delete" class="danger">🗑 Delete</a>
+            <% } %>
+          </div>
+        </article>
+      <% }) %>
+
+    </section>
+  </main>
+
+</body>
+</html>

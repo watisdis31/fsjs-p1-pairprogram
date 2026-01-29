@@ -1,17 +1,18 @@
 
 const {User,Post,Community,UserCommunity,UserProfile}=require("../models")
 const formatDate = require("../helpers/helper")
+
 class PostController{
-    
    static async post(req,res){
     try {
-        let data =await Post.getLatest()
-        res.render("",{data,formatDate})
+        let posts = await Post.getLatest()
+        res.render("post", {posts, formatDate, user:req.session})
     } catch (error) {
         res.send(error)
         
     }
    }
+
    static async getAddPost(req,res){
     try {
 
