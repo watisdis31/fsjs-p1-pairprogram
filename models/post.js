@@ -1,44 +1,65 @@
-"use strict";
-const { Model } = require("sequelize");
+'use strict';
+const {
+  Model
+} = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-
   class Post extends Model {
-    static async getLatest() {
-  const { User } = this.sequelize.models;
-  return await this.findAll({
-    include: { model: User, attributes: ["id", "username"] },
-    order: [["createdAt", "DESC"]],
-  });
-}
-
+    static getLatest(){
+      return this.findAll({
+        include:["User"],
+        order:[["createdAt","DESC"]]
+      })
+    }
     static associate(models) {
-      Post.belongsTo(models.User, {
-        foreignKey: "UserId",
-      });
-      Post.belongsTo(models.Community, {
-        foreignKey: "CommunityId",
-      });
+      Post.belongsTo(models.User,{
+        foreignKey:"UserId"
+      })
+      Post.belongsTo(models.Community,{
+        foreignKey:"CommunityId"
+      })
     }
   }
-  Post.init(
-    {
-      description: DataTypes.TEXT,
-      imageUrl: DataTypes.STRING,
-      totalLike: {
-        type: DataTypes.INTEGER,
-        defaultValue: 0,
-      },
-      UserId: DataTypes.INTEGER,
-      userComment: DataTypes.TEXT,
-      CommunityId: {
-        type: DataTypes.INTEGER,
-        allowNull: true,
-      },
+  Post.init({
+    description:{
+      type:DataTypes.TEXT,
+      allowNull:false,
+      validate:{
+        notNull:{
+          msg:"Description tidak boleh kosong"
+        },
+        notEmpty:{
+          msg:"Description tidak boleh kosong"
+        }
+      }
     },
-    {
-      sequelize,
-      modelName: "Post",
+    imageUrl: {
+      type:DataTypes.STRING,
+      allowNull:false,
+      validate:{
+        notNull:{
+          msg:"Image URL tidak boleh kosong"
+        },
+        notEmpty:{
+          msg:"Image URL tidak boleh kosong"
+        },
+        isUrl:{
+          msg: "Image URL harus berupa URL yang valid"
+        }
+      }
     },
-  );
+    totalLike: {
+      type:DataTypes.INTEGER,
+      defaultValue: 0
+    },
+    UserId: DataTypes.INTEGER,
+    userComment: DataTypes.TEXT,
+    CommunityId:{
+      type:DataTypes.INTEGER,
+      allowNull:true
+    }
+  }, {
+    sequelize,
+    modelName: 'Post',
+  });
   return Post;
 };

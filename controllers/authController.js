@@ -20,21 +20,25 @@ class AuthController {
         req.session.userId = user.id
         req.session.role = user.role
 
-        res.redirect('/kitabmuka/posts')
+        if (user.role === 'admin') {
+          res.redirect('/kitabmuka/admin');
+        } else {
+          res.redirect('/kitabmuka/posts');
+        }
       })
       .catch(err => {
         res.render('loginForm', { error: err })
       })
   }
 
-  static registerForm(req, res) {
-    res.render('registerForm')
+  static registerForm (req, res) {
+    res.render('registerForm');
   }
 
   static register(req, res) {
-    const { username, email, password } = req.body
+    const { username,email, password} = req.body
 
-    User.create({ username, email, password})
+    User.create({ username,email, password, role: 'user' })
       .then(user => {
       sendWelcomeEmail(user.email)
         .then(() => console.log('EMAIL SENT'))

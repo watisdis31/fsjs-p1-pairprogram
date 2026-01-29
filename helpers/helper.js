@@ -8,5 +8,15 @@ function formatDate(date) {
     minute: "2-digit",
   });
 }
+function isMember(UserId,CommunityId){
+    return usercommunity.findOne({
+        where:{
+            UserId,
+            CommunityId
+        }
+    }).then(found=>{
+        return !!found
+    })
+}
 
-module.exports = formatDate;
+module.exports={formatDate,isMember}

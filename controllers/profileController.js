@@ -1,21 +1,21 @@
 const {User,Post,Community,UserCommunity,UserProfile}=require("../models")
-const formatDate = require('../helpers/helper')
+const {formatDate} = require('../helpers/helper')
 class ProfileController{
-      static async profile(req,res){
+    static async userProfile(req, res) {
         try {
-            const {id}=req.params
-    
-            const data =await User.findByPk(id,{
-                include:[
-                    UserProfile,
-                    Post
-                ],
-            })    
-            res.render("",{data,formatDate})
-        } catch (error) {
-            res.send(error)
-            
+            const { id } = req.params;
+            const user = await User.findByPk(id);
+
+            const posts = await Post.findAll({
+            where: { UserId: id },
+            order: [["createdAt", "DESC"]]
+            });
+
+            res.render("profile", { user, posts, formatDate });
+        } catch (err) {
+            res.send(err);
         }
-       }
+        } 
+
 }
 module.exports = ProfileController

@@ -1,6 +1,6 @@
 
 const {User,Post,Community,UserCommunity,UserProfile}=require("../models")
-const formatDate = require("../helpers/helper")
+const {formatDate} = require("../helpers/helper")
 
 class PostController{
    static async post(req,res){
@@ -15,8 +15,7 @@ class PostController{
 
    static async getAddPost(req,res){
     try {
-
-        res.render("",)
+        res.render("addPost", {oldData: {}})
     } catch (error) {
         res.send(error)
         
@@ -25,23 +24,22 @@ class PostController{
    static async postAddPost(req,res){
     try {
         const {description,imageUrl}=req.body
-     
-
         await Post.create({
             description,
             imageUrl,
-            UserId:1
+            UserId:req.session.userId 
         })
-        res.redirect("/posts")
+        res.redirect("/kitabmuka/posts")
     } catch (error) {
-        res.send(error)
-        
+        res.render('addPost', {oldData: req.body})
     }
    }
    static async getEditPost(req,res){
     try {
+        const {id}=req.params
+        const post=await Post.findByPk(id)
 
-        res.render("",)
+        res.render('editPost', {post})
     } catch (error) {
         res.send(error)
         
@@ -56,6 +54,7 @@ class PostController{
             {description,imageUrl},
             {where:{id}}
         )
+        res.redirect('/kitabmuka/posts') 
         
     } catch (error) {
         res.send(error)
@@ -69,7 +68,7 @@ class PostController{
             return post.destroy()
         })
         .then(()=>{
-            res.redirect("/posts")
+            res.redirect("/kitabmuka/posts")
         })
 
     } catch (error) {
@@ -86,7 +85,7 @@ class PostController{
             totalLike:1
         })
 
-        res.redirect("/posts",)
+        res.redirect("/kitabmuka/posts",)
     } catch (error) {
         res.send(error)
         

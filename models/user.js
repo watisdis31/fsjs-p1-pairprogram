@@ -1,23 +1,26 @@
-'use strict'
+'use strict';
+const {Model} = require('sequelize');
 const bcrypt = require('bcryptjs')
-const { Model } = require('sequelize')
-
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     static associate(models) {
-      User.hasOne(models.UserProfile)
-      User.hasMany(models.Post)
+     User.hasOne(models.UserProfile,{foreignKey:"UserId"})
+     User.hasMany(models.Post,{foreignKey:"UserId"})
+     User.belongsToMany(models.Community,{
+        through:models.UserCommunity,
+        foreignKey:"UserId"
+     })
+     
     }
   }
-
   User.init({
     username: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
       validate: {
-        notNull: { msg: 'Username wajib diisi' },
-        notEmpty: { msg: 'Username wajib diisi' }
+        notNull: { msg: 'username wajib diisi' },
+        notEmpty: { msg: 'username wajib diisi' },
       }
     },
     email: {
@@ -27,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         notNull: { msg: 'Email wajib diisi' },
         notEmpty: { msg: 'Email wajib diisi' },
-        isEmail: { msg: 'Format email salah' }
+        isEmail: { msg: 'Format email saalah' }
       }
     },
     password: {
@@ -42,23 +45,19 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
-    role: {
-      type: DataTypes.STRING
+    role:{
+      type: DataTypes.STRING,
+      defaultValue: 'user'
     }
   }, {
     sequelize,
-    modelName: 'User'
-  })
-
-  User.addHook('beforeCreate', (user) => {
-    const salt = bcrypt.genSaltSync(10)
-    user.password = bcrypt.hashSync(user.password, salt)
-
-    if (!user.role) {
-      user.role = 'user'
+    modelName: 'User',
+    hooks: {
+      beforeCreate(user) {
+        const salt = bcrypt.genSaltSync(10)
+        user.password = bcrypt.hashSync(user.password, salt)
+      }
     }
-})
-
-
-  return User
-}
+  });
+  return User;
+};
