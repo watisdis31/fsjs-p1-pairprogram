@@ -1,12 +1,16 @@
+
 const express = require('express');
 const router = express.Router();
-const profileRouter = require('./profiles');
-const postsRouter = require('./posts');
-const communityRouter = require('./communities');
 
 
-router.use('/posts',postsRouter)
-router.use('/profile',profileRouter)
-router.use('/communities',communityRouter)
+router.use('/posts',require('./posts'))
+router.use('/profile',require('./profiles'))
+router.use('/communities',require('./communities'))
+router.use('/', require('./auth'))
+
 
 module.exports=router
+
+
+
+

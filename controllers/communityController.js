@@ -1,6 +1,6 @@
 
 const {User,Post,Community,UserCommunity,UserProfile}=require("../models")
-const formatDate = require("../helpers/helper")
+const {formatDate,isMember} = require("../helpers/helper")
 class CommunityController{
 
    
@@ -8,7 +8,7 @@ class CommunityController{
     try {
         const data=await Community.findAll()
 
-        res.render("",{data})
+        res.send(data)
     } catch (error) {
         res.send(error)
         
@@ -41,7 +41,7 @@ class CommunityController{
                 {model:Post}
             ]
         })
-        res.render("",{data})
+        res.send(data,isMember)
     } catch (error) {
         res.send(error)
         
@@ -49,7 +49,13 @@ class CommunityController{
    }
    static async joinCommunity(req,res){
     try {
-        res.render()
+        const {id}=req.params
+        const UserId=req.session.userId 
+        await UserCommunity.create({
+            UserId,
+            CommunityId:id
+        })
+        res.redirect(`/communities/${id}`)
     } catch (error) {
         res.send(error)
         
@@ -57,7 +63,15 @@ class CommunityController{
    }
    static async addCommunityPost(req,res){
     try {
-        res.render()
+        const {id}=req.params
+        const {description,imageUrl}=req.body
+        await Post.create({
+            description,
+            imageUrl,
+            UserId:req.session.userId,
+            CommunityId:id
+        })
+        res.redirect(`/communities/${id}`)
     } catch (error) {
         res.send(error)
         

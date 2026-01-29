@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
   class Post extends Model {
     static getLatest(){
       return this.findAll({
-        include:"User",
+        include:["User"],
         order:[["createdAt","DESC"]]
       })
     }
@@ -20,8 +20,33 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Post.init({
-    description: DataTypes.TEXT,
-    imageUrl: DataTypes.STRING,
+    description:{
+      type:DataTypes.TEXT,
+      allowNull:false,
+      validate:{
+        notNull:{
+          msg:"Description tidak boleh kosong"
+        },
+        notEmpty:{
+          msg:"Description tidak boleh kosong"
+        }
+      }
+    },
+    imageUrl: {
+      type:DataTypes.STRING,
+      allowNull:false,
+      validate:{
+        notNull:{
+          msg:"Image URL tidak boleh kosong"
+        },
+        notEmpty:{
+          msg:"Image URL tidak boleh kosong"
+        },
+        isUrl:{
+          msg: "Image URL harus berupa URL yang valid"
+        }
+      }
+    },
     totalLike: {
       type:DataTypes.INTEGER,
       defaultValue: 0

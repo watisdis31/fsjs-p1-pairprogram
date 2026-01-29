@@ -6,7 +6,7 @@ class PostController{
    static async post(req,res){
     try {
         let data =await Post.getLatest()
-        res.render("",{data,formatDate})
+        res.send(data,formatDate)
     } catch (error) {
         res.send(error)
         
@@ -29,7 +29,7 @@ class PostController{
         await Post.create({
             description,
             imageUrl,
-            UserId:1
+            UserId:req.session.userId 
         })
         res.redirect("/posts")
     } catch (error) {
@@ -39,8 +39,10 @@ class PostController{
    }
    static async getEditPost(req,res){
     try {
+        const {id}=req.params
+        const post=await Post.findByPk(id)
 
-        res.render("",)
+        res.render(post)
     } catch (error) {
         res.send(error)
         
@@ -55,6 +57,7 @@ class PostController{
             {description,imageUrl},
             {where:{id}}
         )
+        res.redirect('/posts') 
         
     } catch (error) {
         res.send(error)

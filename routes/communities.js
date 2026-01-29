@@ -2,6 +2,10 @@ const express = require('express');
 const CommunityController = require('../controllers/communityController');
 const router = express.Router();
 
+const isLogin = require('../middlewares/auth')
+
+router.use(isLogin)
+
 router.get('/',CommunityController.communities);
 router.get('/add',CommunityController.getAddCommunity);
 router.post('/add',CommunityController.postAddCommunity);
