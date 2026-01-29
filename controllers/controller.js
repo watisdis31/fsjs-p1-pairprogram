@@ -17,38 +17,6 @@ class Controller{
         }
     }
 
-    static async getLogin(req, res) {
-        try {
-            res.render('loginForm');
-        } catch (error) {
-            res.send(error);
-        }
-    }
-
-    static async postLogin(req, res) {
-        try {
-            
-        } catch (error) {
-            res.send(error);
-        }
-    }
-
-    static async getRegister (req, res) {
-        try {
-            res.render('registerForm');
-        } catch (error) {
-            res.send(error);
-        }
-    }
-
-    static async postRegister(req, res) {
-        try {
-            
-        } catch (error) {
-            res.send(error);
-        }
-    }
-
     static async post(req,res) {
         try {
             let posts = await Post.findAll({

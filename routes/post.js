@@ -1,5 +1,8 @@
 const Controller = require("../controllers/controller");
 const router = require('express').Router();
+const isLogin = require('../middlewares/auth');
+
+router.use(isLogin);
 
 router.get('/posts', Controller.post);
 // router.get('/posts/add', Controller.postAddGet);
