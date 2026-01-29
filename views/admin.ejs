@@ -1,0 +1,21 @@
+<h1>Admin Page</h1>
+
+<table border="1">
+  <tr>
+    <th>Email</th>
+    <th>Role</th>
+    <th>Action</th>
+  </tr>
+
+  <% users.forEach(user => { %>
+    <tr>
+      <td><%= user.email %></td>
+      <td><%= user.role %></td>
+      <td>
+        <% if (user.role !== 'admin') { %>
+          <a href="/admin/promote/<%= user.id %>">Make Admin</a>
+        <% } %>
+      </td>
+    </tr>
+  <% }) %>
+</table>
