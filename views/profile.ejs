@@ -39,11 +39,15 @@
             <img src="<%= post.imageUrl %>" alt="post image">
           <% } %>
 
+          
+
           <div class="post-actions">
             <a href="/kitabmuka/posts/<%= post.id %>/like">❤️ Like (<%= post.totalLike %>)</a>
             <a href="/kitabmuka/posts/<%= post.id %>/edit">✏️ Edit</a>
             <a href="/kitabmuka/posts/<%= post.id %>/delete" class="danger">🗑 Delete</a>
           </div>
+
+          
         </article>
       <% }) %>
     </section>

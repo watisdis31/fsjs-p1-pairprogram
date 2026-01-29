@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Communities • KitabMuka</title>
+    <link rel="stylesheet" href="/styles/communityProfile.css">
+</head>
+<body>
+<nav class="navbar">
+    <h2>KitabMuka</h2>
+    <div class="nav-actions">
+      <a href="/kitabmuka/communities" class="btn outline">Communities</a>
+      <a href="/kitabmuka/posts" class="btn outline">Home</a>
+      <a href="/kitabmuka/logout" class="btn outline">Logout</a>
+    </div>
+  </nav>
+
+<main class="container">
+  <section class="community-header">
+    <h1><%= community.communityName %></h1>
+    <p><%= community.description %></p>
+  </section>
+
+  <section class="community-users">
+    <h2>Members</h2>
+    <ul>
+      <% community.Users.forEach(u => { %>
+        <li>@<%= u.username %></li>
+      <% }) %>
+    </ul>
+  </section>
+
+  <div class="community-actions">
+  <% 
+    const isMember = community.Users.some(u => u.id === user.userId);
+  %>
+  
+  <% if (isMember) { %>
+    <form action="/kitabmuka/communities/<%= community.id %>/leave" method="post" style="display:inline;">
+      <button class="btn outline">Leave Community</button>
+    </form>
+  <% } else { %>
+    <form action="/kitabmuka/communities/<%= community.id %>/join" method="post" style="display:inline;">
+      <button class="btn primary">Join Community</button>
+    </form>
+  <% } %>
+    </div>
+
+
+  <section class="community-posts">
+    <h2>Posts</h2>
+
+    <% community.Posts.forEach(post => { %>
+      <div class="post">
+        <div class="post-header">
+          <strong>
+            <a href="/kitabmuka/profile/<%= post.User.id %>"    class="username-link">
+                @<%= post.User.username %>
+            </a>
+          </strong>
+          <span class="date"><%= formatDate(post.createdAt) %></span>
+        </div>
+        <p><%= post.description %></p>
+        <% if(post.imageUrl){ %>
+          <img src="<%= post.imageUrl %>" alt="post image">
+        <% } %>
+      </div>
+    <% }) %>
+
+    <div class="add-post">
+      <h3>Add Post</h3>
+      <form action="/kitabmuka/communities/<%= community.id %>/posts/add" method="POST">
+        <textarea name="description" placeholder="Write something..." required></textarea>
+        <input type="text" name="imageUrl" placeholder="Image URL">
+        <button class="btn primary">Post</button>
+      </form>
+    </div>
+  </section>
+</main>
+
+</body>
+</html>

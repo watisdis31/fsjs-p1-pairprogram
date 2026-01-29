@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
   class Post extends Model {
     static getLatest(){
       return this.findAll({
-        include:["User"],
+        include:["User", "Community"],
         order:[["createdAt","DESC"]]
       })
     }

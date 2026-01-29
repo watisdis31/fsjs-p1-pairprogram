@@ -151,3 +151,18 @@ body {
   color: #71767b;
   margin-top: 40px;
 }
+
+.post-community {
+  font-size: 0.9rem;
+  color: #71767b;
+  margin-top: 4px;
+}
+
+.post-community a.community-link {
+  color: #1d9bf0;
+  text-decoration: none;
+}
+
+.post-community a.community-link:hover {
+  text-decoration: underline;
+}

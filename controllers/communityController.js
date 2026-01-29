@@ -1,22 +1,33 @@
 
-const {User,Post,Community,UserCommunity,UserProfile}=require("../models")
-const {formatDate,isMember} = require("../helpers/helper")
-class CommunityController{
+const {User,Post,Community,UserCommunity,UserProfile}=require("../models");
+const {formatDate,isMember} = require("../helpers/helper");
+const {Op} = require('sequelize');
 
-   
+class CommunityController{
    static async communities(req,res){
     try {
-        const data=await Community.findAll()
+        const {search} = req.query;
+        let whereClause = {};
 
-        res.send(data)
+        if (search) {
+            whereClause.communityName = {
+                [Op.iLike]: `%${search}%`
+            }
+        };
+
+        const communities = await Community.findAll({
+            where: whereClause,
+            include: [{model: User, attributes: ['id','username']}]
+        });
+
+        res.render('communities', {communities, search: search || '', user:req.session});
     } catch (error) {
         res.send(error)
-        
     }
    }
    static async getAddCommunity(req,res){
     try {
-        res.render("")
+        res.render("addCommunity")
     } catch (error) {
         res.send(error)
         
@@ -35,13 +46,13 @@ class CommunityController{
    static async communityDetail(req,res){
     try {
         const {id}=req.params
-        const data=await Community.findByPk(id,{
+        const community=await Community.findByPk(id,{
             include:[
-                {model:User},
-                {model:Post}
+                {model:User, attributes: ['id', 'username']},
+                {model:Post, include: User}
             ]
         })
-        res.send(data,isMember)
+        res.render('communityProfile', {community, isMember, formatDate, user: req.session})
     } catch (error) {
         res.send(error)
         
@@ -55,12 +66,28 @@ class CommunityController{
             UserId,
             CommunityId:id
         })
-        res.redirect(`/communities/${id}`)
+        res.redirect(`/kitabmuka/communities/${id}`)
     } catch (error) {
         res.send(error)
-        
     }
    }
+   static async leaveCommunity(req, res) {
+    try {
+        const { id } = req.params;
+        const userId = req.session.userId;
+
+        await UserCommunity.destroy({
+        where: {
+            CommunityId: id,
+            UserId: userId
+        }
+        });
+        res.redirect(`/kitabmuka/communities/${id}`);
+    } catch (error) {
+        res.send(error);
+    }
+   }
+
    static async addCommunityPost(req,res){
     try {
         const {id}=req.params
@@ -71,7 +98,7 @@ class CommunityController{
             UserId:req.session.userId,
             CommunityId:id
         })
-        res.redirect(`/communities/${id}`)
+        res.redirect(`/kitabmuka/communities/${id}`)
     } catch (error) {
         res.send(error)
         

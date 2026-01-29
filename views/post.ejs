@@ -6,12 +6,11 @@
   <link rel="stylesheet" href="/styles/post.css">
 </head>
 <body>
-
-  <!-- NAVBAR -->
   <nav class="navbar">
     <h2>KitabMuka</h2>
     <div class="nav-actions">
       <a href="/kitabmuka/posts/add" class="btn">Post</a>
+      <a href="/kitabmuka/communities" class="btn outline">Communities</a>
       <a href="/kitabmuka/profile/<%= user.userId %>" class="btn outline">Profile</a>
       <a href="/kitabmuka/logout" class="btn outline">Logout</a>
     </div>
@@ -43,6 +42,15 @@
             <%= post.description %>
           </p>
 
+          <% if(post.Community){ %>
+      <p class="post-community">
+        posted from 
+        <a href="/kitabmuka/communities/<%= post.Community.id %>" class="community-link">
+          <%= post.Community.communityName %>
+        </a>
+      </p>
+    <% } %>
+
           <div class="post-actions">
             <a href="/kitabmuka/posts/<%= post.id %>/like">❤️ Like (<%= post.totalLike %>)</a>
 
@@ -53,9 +61,7 @@
           </div>
         </article>
       <% }) %>
-
     </section>
   </main>
-
 </body>
 </html>

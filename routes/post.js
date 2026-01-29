@@ -12,4 +12,5 @@ router.post('/posts/:id/edit', isLogin, isOwner, PostController.postEditPost);
 router.get('/posts/:id/like', isLogin, PostController.likePost);
 router.get('/posts/:id/delete', isLogin, isOwner, PostController.deletePost);
 
+
 module.exports = router;

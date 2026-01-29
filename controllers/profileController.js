@@ -7,6 +7,7 @@ class ProfileController{
             const user = await User.findByPk(id);
 
             const posts = await Post.findAll({
+            include: {model: Community},
             where: { UserId: id },
             order: [["createdAt", "DESC"]]
             });
